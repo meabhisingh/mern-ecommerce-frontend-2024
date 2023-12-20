@@ -273,7 +273,7 @@ $color3: rgb(0, 104, 136);
 
 .loader {
   width: 100%;
-  height: 100vh;
+  height: 85vh;
   @include flex;
   > div {
     @include square(10rem);
