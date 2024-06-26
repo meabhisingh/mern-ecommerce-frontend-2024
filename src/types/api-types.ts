@@ -1,10 +1,12 @@
 import {
   Bar,
   CartItem,
+  CouponType,
   Line,
   Order,
   Pie,
   Product,
+  Review,
   ShippingInfo,
   Stats,
   User,
@@ -36,6 +38,10 @@ export type UserResponse = {
 export type AllProductsResponse = {
   success: boolean;
   products: Product[];
+};
+export type AllReviewsResponse = {
+  success: boolean;
+  reviews: Review[];
 };
 export type CategoriesResponse = {
   success: boolean;
@@ -86,10 +92,23 @@ export type LineResponse = {
   charts: Line;
 };
 
+export type NewReviewRequest = {
+  rating: number;
+  comment: string;
+  userId?: string;
+  productId: string;
+};
+
+export type DeleteReviewRequest = {
+  userId?: string;
+  reviewId: string;
+};
+
 export type NewProductRequest = {
   id: string;
   formData: FormData;
 };
+
 export type UpdateProductRequest = {
   userId: string;
   productId: string;
@@ -119,4 +138,14 @@ export type UpdateOrderRequest = {
 export type DeleteUserRequest = {
   userId: string;
   adminUserId: string;
+};
+
+export type AllDiscountResponse = {
+  success: boolean;
+  coupons: CouponType[];
+};
+
+export type SingleDiscountResponse = {
+  success: boolean;
+  coupon: CouponType;
 };

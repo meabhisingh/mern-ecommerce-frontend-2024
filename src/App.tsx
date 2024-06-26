@@ -4,15 +4,17 @@ import { Toaster } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Header from "./components/header";
-import Loader from "./components/loader";
+import Loader, { LoaderLayout } from "./components/loader";
 import ProtectedRoute from "./components/protected-route";
 import { auth } from "./firebase";
 import { getUser } from "./redux/api/userAPI";
 import { userExist, userNotExist } from "./redux/reducer/userReducer";
 import { RootState } from "./redux/store";
+import Footer from "./components/footer";
 
 const Home = lazy(() => import("./pages/home"));
 const Search = lazy(() => import("./pages/search"));
+const ProductDetails = lazy(() => import("./pages/product-details"));
 const Cart = lazy(() => import("./pages/cart"));
 const Shipping = lazy(() => import("./pages/shipping"));
 const Login = lazy(() => import("./pages/login"));
@@ -26,6 +28,7 @@ const Dashboard = lazy(() => import("./pages/admin/dashboard"));
 const Products = lazy(() => import("./pages/admin/products"));
 const Customers = lazy(() => import("./pages/admin/customers"));
 const Transaction = lazy(() => import("./pages/admin/transaction"));
+const Discount = lazy(() => import("./pages/admin/discount"));
 const Barcharts = lazy(() => import("./pages/admin/charts/barcharts"));
 const Piecharts = lazy(() => import("./pages/admin/charts/piecharts"));
 const Linecharts = lazy(() => import("./pages/admin/charts/linecharts"));
@@ -39,6 +42,11 @@ const ProductManagement = lazy(
 const TransactionManagement = lazy(
   () => import("./pages/admin/management/transactionmanagement")
 );
+const DiscountManagement = lazy(
+  () => import("./pages/admin/management/discountmanagement")
+);
+
+const NewDiscount = lazy(() => import("./pages/admin/management/newdiscount"));
 
 const App = () => {
   const { user, loading } = useSelector(
@@ -62,10 +70,11 @@ const App = () => {
     <Router>
       {/* Header */}
       <Header user={user} />
-      <Suspense fallback={<Loader />}>
+      <Suspense fallback={<LoaderLayout />}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/search" element={<Search />} />
+          <Route path="/product/:id" element={<ProductDetails />} />
           <Route path="/cart" element={<Cart />} />
           {/* Not logged In Route */}
           <Route
@@ -99,6 +108,8 @@ const App = () => {
             <Route path="/admin/product" element={<Products />} />
             <Route path="/admin/customer" element={<Customers />} />
             <Route path="/admin/transaction" element={<Transaction />} />
+            <Route path="/admin/discount" element={<Discount />} />
+
             {/* Charts */}
             <Route path="/admin/chart/bar" element={<Barcharts />} />
             <Route path="/admin/chart/pie" element={<Piecharts />} />
@@ -117,11 +128,19 @@ const App = () => {
               path="/admin/transaction/:id"
               element={<TransactionManagement />}
             />
+
+            <Route path="/admin/discount/new" element={<NewDiscount />} />
+
+            <Route
+              path="/admin/discount/:id"
+              element={<DiscountManagement />}
+            />
           </Route>
 
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
+      <Footer />
       <Toaster position="bottom-center" />
     </Router>
   );
