@@ -118,12 +118,17 @@ $color3: rgb(0, 104, 136);
 }
 
 .checkout-container {
-  max-width: 400px;
+  height: 80vh;
   width: 100%;
   margin: auto;
+  @include flex;
+
   > form {
     @include flex(column, flex-start, stretch, 2rem);
-
+    max-width: 400px;
+    box-shadow: 0 0 10px rgb(0 0 0 / 10%);
+    padding: 4rem;
+    border-radius: 6px;
     > button {
       @include btn(1rem, $color3, $color1);
       width: 100%;
