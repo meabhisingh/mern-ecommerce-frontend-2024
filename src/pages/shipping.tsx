@@ -8,7 +8,9 @@ import { saveShippingInfo } from "../redux/reducer/cartReducer";
 import { RootState, server } from "../redux/store";
 
 const Shipping = () => {
-  const { cartItems } = useSelector((state: RootState) => state.cartReducer);
+  const { cartItems, coupon } = useSelector(
+    (state: RootState) => state.cartReducer
+  );
   const { user } = useSelector((state: RootState) => state.userReducer);
 
   const navigate = useNavigate();
@@ -39,6 +41,7 @@ const Shipping = () => {
         {
           items: cartItems,
           shippingInfo,
+          coupon,
         },
         {
           headers: {

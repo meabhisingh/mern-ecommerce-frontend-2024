@@ -15,7 +15,10 @@ import { RootState } from "../redux/store";
 import { NewOrderRequest } from "../types/api-types";
 import { responseToast } from "../utils/features";
 
-const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_KEY);
+const stripeKey =
+  "pk_test_51OHpE1SEOz14slwcBOcGOweicHk9XITWgND9NAvr7ZJXIYdUiNyOHQtrbCsdQTLQqVAgDNeaDpPshuIO1PnHthtq00AJdf3gtG";
+
+const stripePromise = loadStripe(stripeKey);
 
 const CheckOutForm = () => {
   const stripe = useStripe();
